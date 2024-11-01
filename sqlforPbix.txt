@@ -1,0 +1,23 @@
+pbix 
+task 2 
+Напишите SQL запрос по базе данных из задания 1, который выведет список тех пользователей, которые купили за период 1-15 августа 2 любых корма для животных, кроме "Корм Kitekat для кошек, с кроликом в соусе, 85 г". Приложите его в текстовом документе. 
+SELECT DISTINCT user_id
+FROM final_data
+WHERE category = 'Продукция для животных'
+AND product != 'Корм Kitekat для кошек, с кроликом в соусе, 85 г'
+AND (month = 'August' AND day BETWEEN 1 AND 15)
+GROUP BY user_id
+HAVING COUNT(DISTINCT product_id) >= 2;
+
+
+ task3 
+Напишите SQL запрос, который выведет список топ 5 самых часто встречающихся товаров в заказах пользователей в СПб за период 15-30 августа. Приложите его в том же текстовом документе, где вы написали запрос из предыдущего пункта. 
+
+
+SELECT product, COUNT(product_id) AS product_count
+FROM final_data
+WHERE city = 'Санкт-Петербург'
+AND (month = 'August' AND day BETWEEN 15 AND 30)
+GROUP BY product
+ORDER BY product_count DESC
+LIMIT 5;
